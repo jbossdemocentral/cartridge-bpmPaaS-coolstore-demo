@@ -1,0 +1,106 @@
+#!/bin/bash -eu
+
+source $OPENSHIFT_BRMS_DIR/bin/util
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+case "$1" in
+  -v|--version)
+    version="$2"
+esac
+
+echo "$version" > "$OPENSHIFT_BRMS_DIR/env/OPENSHIFT_BRMS_VERSION"
+
+ln -s ${OPENSHIFT_BRMS_DIR}/standalone/log ${OPENSHIFT_BRMS_DIR}/logs
+
+shopt -s dotglob
+cp -rf ${OPENSHIFT_BRMS_DIR}/versions/${version}/template/* ${OPENSHIFT_BRMS_DIR}/template
+
+##
+## Remove .git directory for space
+##
+rm -rf ${OPENSHIFT_BRMS_DIR}/.git
+
+ln -s ${OPENSHIFT_BRMS_DIR}/versions/${version}/share ${OPENSHIFT_BRMS_DIR}
+ln -s ${OPENSHIFT_BRMS_DIR}/versions/${version}/jboss/modules ${OPENSHIFT_BRMS_DIR}/jboss
+ln -s ${OPENSHIFT_BRMS_DIR}/versions/${version}/jboss/jboss-modules.jar ${OPENSHIFT_BRMS_DIR}/jboss
+cp -f ${OPENSHIFT_BRMS_DIR}/template/${OPENSHIFT_BRMS_CONFIG_PATH}/standalone.xml ${OPENSHIFT_BRMS_DIR}/standalone/configuration/standalone.xml
+ln -s ${OPENSHIFT_BRMS_DIR}/template/${OPENSHIFT_BRMS_CONFIG_PATH}/settings.xml ${OPENSHIFT_BRMS_M2_REPO}/settings.xml
+
+ln -s ${OPENSHIFT_BRMS_DIR}/versions/${version}/standalone/deployments/business-central.war ${OPENSHIFT_BRMS_DIR}/standalone/deployments/business-central.war
+ln -s ${OPENSHIFT_BRMS_DIR}/versions/${version}/standalone/deployments/business-central.war.dodeploy ${OPENSHIFT_BRMS_DIR}/standalone/deployments/business-central.war.dodeploy
+
+ln -s ${OPENSHIFT_BRMS_DIR}/versions/${version}/standalone/deployments/brms-coolstore-demo.war ${OPENSHIFT_BRMS_DIR}/standalone/deployments/brms-coolstore-demo.war
+ln -s ${OPENSHIFT_BRMS_DIR}/versions/${version}/standalone/deployments/brms-coolstore-demo.war.dodeploy ${OPENSHIFT_BRMS_DIR}/standalone/deployments/brms-coolstore-demo.war.dodeploy
+
+
+sed -i "s/{APP_NAME}/${OPENSHIFT_APP_NAME}/g" ${OPENSHIFT_BRMS_DIR}/template/pom.xml
+
+pushd $OPENSHIFT_BRMS_DIR/template/src/main/webapp
+  jar cvf $OPENSHIFT_BRMS_DIR/standalone/deployments/ROOT.war ./*
+popd
+
+JBOSS_HOME=${OPENSHIFT_BRMS_DIR}/jboss
+pushd $OPENSHIFT_BRMS_DIR > /dev/null
+  ln -s ${JBOSS_HOME}/jboss-modules.jar
+  ln -s ${JBOSS_HOME}/modules
+popd 1> /dev/null
+
+# Disable Openshift management
+set_env_var DISABLE_OPENSHIFT_MANAGED_SERVER_CONFIG true ~/.env/user_vars
+
+# copy in demo.
+mv ${OPENSHIFT_BRMS_DIR}/versions/${version}/standalone/data/brms-demo-niogit ${OPENSHIFT_BRMS_DIR}/standalone/data/.niogit
+
+brms_admin_username=erics
+brms_analyst_username=alan
+
+brms_admin_password=jbossbrms1!
+brms_analyst_password=jbossbrms1!
+
+# env vars
+#
+echo "$brms_admin_username" > $OPENSHIFT_BRMS_DIR/env/OPENSHIFT_BRMS_ADMIN_USERNAME
+echo "$brms_admin_password" > $OPENSHIFT_BRMS_DIR/env/OPENSHIFT_BRMS_ADMIN_PASSWORD
+
+echo "$brms_analyst_username" > $OPENSHIFT_BRMS_DIR/env/OPENSHIFT_BRMS_ANALYST_USERNAME
+echo "$brms_analyst_password" > $OPENSHIFT_BRMS_DIR/env/OPENSHIFT_BRMS_ANALYST_PASSWORD
+
+# Create the brms-security-users.properties file
+BRMS_USERS_PATH="${OPENSHIFT_BRMS_DIR}/template/${OPENSHIFT_BRMS_CONFIG_PATH}/${OPENSHIFT_BRMS_USERS_FILE}"
+echo "# username=password" > $BRMS_USERS_PATH
+echo "${brms_admin_username}=${brms_admin_password}" >> $BRMS_USERS_PATH
+echo "${brms_analyst_username}=${brms_analyst_password}" >> $BRMS_USERS_PATH
+
+# Create the brms-security-roles.properties file
+BRMS_ROLES_PATH="${OPENSHIFT_BRMS_DIR}/template/${OPENSHIFT_BRMS_CONFIG_PATH}/${OPENSHIFT_BRMS_ROLES_FILE}"
+echo "# username=role1,role2" > $BRMS_ROLES_PATH
+echo "${brms_admin_username}=admin" >> $BRMS_ROLES_PATH
+echo "${brms_analyst_username}=analyst" >> $BRMS_ROLES_PATH
+
+# Create temporary symlinks from <EAP_HOME>/standalone/configuration to users and roles files.
+# This files cannot be linked from $OPERNSHIFT_REPO_DIR yet because this repository is not initialized yet.
+# In post_install script, this symlinks will point the developer repository location in cartridge working directory.
+ln -s $BRMS_USERS_PATH "${OPENSHIFT_BRMS_DIR}/standalone/configuration/${OPENSHIFT_BRMS_USERS_FILE}"
+ln -s $BRMS_ROLES_PATH "${OPENSHIFT_BRMS_DIR}/standalone/configuration/${OPENSHIFT_BRMS_ROLES_FILE}"
+
+client_result ""
+client_result "Red Hat JBoss BRMS Suite ${version} cartridge installed.  Please make note of these credentials:"
+client_result ""
+client_result "             BRMS Admin User: $brms_admin_username"
+client_result "                    Password: $brms_admin_password"
+client_result ""
+client_result "           BRMS Analyst User: $brms_analyst_username"
+client_result "                    Password: $brms_analyst_password"
+client_result ""
+client_result ""
+client_result "Configuration files: "
+client_result "- You can add/modify/show/remove users and roles using the following files in your cartridge git repository:"
+client_result "   - Users -> ${OPENSHIFT_BRMS_CONFIG_PATH}${OPENSHIFT_BRMS_USERS_FILE}"
+client_result "   - Roles -> ${OPENSHIFT_BRMS_CONFIG_PATH}${OPENSHIFT_BRMS_ROLES_FILE}"
+client_result "2.- You can modify the JBoss EAP standalone configuration file used for the BRMS application in your cartridge git repository at path ${OPENSHIFT_BRMS_CONFIG_PATH}standalone.xml"
+client_result "3.- You can modify the Maven settings configuration file used for the BRMS application in your cartridge git repository at path ${OPENSHIFT_BRMS_CONFIG_PATH}settings.xml"
+client_result ""
+
+touch ${OPENSHIFT_BRMS_DIR}/env/OPENSHIFT_BRMS_CLUSTER
+touch ${OPENSHIFT_BRMS_DIR}/env/OPENSHIFT_BRMS_CLUSTER_REMOTING
+update-configuration java7

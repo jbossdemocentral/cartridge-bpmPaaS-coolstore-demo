@@ -1,0 +1,3 @@
+org.kie.workbench.drools.client.perspectives.M2RepoPerspectiveActivity
+org.kie.workbench.drools.client.perspectives.AdministrationPerspectiveActivity
+org.kie.workbench.drools.client.perspectives.DroolsAuthoringPerspectiveActivity

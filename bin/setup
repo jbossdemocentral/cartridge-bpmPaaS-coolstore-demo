@@ -1,0 +1,20 @@
+#!/bin/bash -eu
+
+case "$1" in
+  -v|--version)
+    version="$2"
+esac
+
+# Create additional directories required by BPMS
+mkdir -p ${OPENSHIFT_BRMS_M2_REPO}
+mkdir -p ${OPENSHIFT_BRMS_DIR}/{template,standalone/tmp,standalone/deployments,standalone/configuration,standalone/log,standalone/data,modules_ext/org,jboss}
+
+# Copy the version specific files up to BPMS directory
+cp -r ${OPENSHIFT_BRMS_DIR}/versions/${version}/standalone/configuration/* ${OPENSHIFT_BRMS_DIR}/standalone/configuration
+ln -s ${OPENSHIFT_BRMS_DIR}/versions/${version}/bin/* ${OPENSHIFT_BRMS_DIR}/bin
+
+#Nothing in modules currently
+#cp -r ${OPENSHIFT_BRMS_DIR}/versions/${version}/modules/org/* ${OPENSHIFT_BRMS_DIR}/modules_ext/org
+
+# Initialize the JBoss CLI history file
+[ -f ${OPENSHIFT_HOMEDIR}/.jboss-cli-history ] || touch ${OPENSHIFT_HOMEDIR}/.jboss-cli-history

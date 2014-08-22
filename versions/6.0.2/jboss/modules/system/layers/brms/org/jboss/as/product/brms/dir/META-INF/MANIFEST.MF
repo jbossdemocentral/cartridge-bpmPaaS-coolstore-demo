@@ -1,0 +1,3 @@
+JBoss-Product-Release-Name: BRMS
+JBoss-Product-Release-Version: 6.0.2.GA
+JBoss-Product-Console-Slot: eap

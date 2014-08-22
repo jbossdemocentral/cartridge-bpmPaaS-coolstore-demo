@@ -1,0 +1,15 @@
+#!/bin/bash -eu
+
+if [ -e $OPENSHIFT_BRMS_DIR/standalone/deployments/ROOT.war ]; then
+  cp $OPENSHIFT_BRMS_DIR/standalone/deployments/ROOT.war $OPENSHIFT_REPO_DIR/deployments
+fi
+
+# Once the developer git repository (located at ${OPENSHIFT_REPO_DIR}) is initialized, add symlinks of the configuration the files in developer repository to <EAP_HOME>/standalone/configuration 
+rm -f "${OPENSHIFT_BRMS_DIR}/standalone/configuration/${OPENSHIFT_BRMS_USERS_FILE}"
+rm -f "${OPENSHIFT_BRMS_DIR}/standalone/configuration/${OPENSHIFT_BRMS_ROLES_FILE}"
+ln -s "${OPENSHIFT_REPO_DIR}/${OPENSHIFT_BRMS_CONFIG_PATH}/${OPENSHIFT_BRMS_USERS_FILE}" "${OPENSHIFT_BRMS_DIR}/standalone/configuration/${OPENSHIFT_BRMS_USERS_FILE}"
+ln -s "${OPENSHIFT_REPO_DIR}/${OPENSHIFT_BRMS_CONFIG_PATH}/${OPENSHIFT_BRMS_ROLES_FILE}" "${OPENSHIFT_BRMS_DIR}/standalone/configuration/${OPENSHIFT_BRMS_ROLES_FILE}"
+
+# Once the developer git repository (located at ${OPENSHIFT_REPO_DIR}) is initialized, add symlinks of the maven settings.xml file in developer repository to <M2_REPO>/settings.xml
+rm -f "${OPENSHIFT_BRMS_M2_REPO}/settings.xml"
+ln -s "${OPENSHIFT_REPO_DIR}/${OPENSHIFT_BRMS_CONFIG_PATH}/settings.xml" "${OPENSHIFT_BRMS_M2_REPO}/settings.xml"

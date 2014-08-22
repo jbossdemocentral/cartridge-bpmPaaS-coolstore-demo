@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.0" name="org.jbpm-minimal">
+  <resources>
+
+<resource-root path="jbpm-bpmn2-6.0.3-redhat-4.jar"/>
+<resource-root path="jbpm-flow-builder-6.0.3-redhat-4.jar"/>
+<resource-root path="jbpm-flow-6.0.3-redhat-4.jar"/>
+<resource-root path="META-INF"/>
+
+  </resources>
+  <dependencies>
+
+<module name="com.google.protobuf" export="false"/>
+<module name="org.drools" export="false"/>
+<module name="org.jboss.solder" export="false"/>
+<module name="org.joda.time" export="false"/>
+<module name="org.kie" export="false"/>
+<module name="org.kie.lib" export="false"/>
+<module name="org.mvel" export="false"/>
+<module name="org.osgi.core" export="false"/>
+<module name="org.slf4j" export="false"/>
+
+<module name="javax.api" export="false"/>
+  </dependencies>
+</module>
