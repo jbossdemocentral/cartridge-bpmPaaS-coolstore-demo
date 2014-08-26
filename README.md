@@ -23,7 +23,9 @@ Deployment
 
 To try out JBoss BRMS on OpenShift please follow the instructions:
 
-If you want to use the [OpenShift create application page](https://openshift.redhat.com/app/console/application_types), enter the cartridge URI of **https://raw.githubusercontent.com/eschabell/cartridge-bpmPaaS-coolstore-demo/master/metadata/manifest.yml** in the entry field (at the bottom left of the form).
+If you want to use the [OpenShift create application page](https://openshift.redhat.com/app/console/application_types), enter this cartridge URI in the entry field (at the bottom left of the form):
+
+  **https://raw.githubusercontent.com/eschabell/cartridge-bpmPaaS-coolstore-demo/master/metadata/manifest.yml**
 
 Or if you want to use the [rhc command line](https://www.openshift.com/developers/rhc-client-tools-install) type:
 
@@ -58,6 +60,8 @@ Released versions
 -----------------
 
 - v1.0 - based on bpmPaaS from JBoss BRMS 6.0.2 with Cool Store installed.
+
+[![Video Demo bpmPaaS](https://github.com/eschabell/erics-images/blob/master/video-images/video-brms-coolstore-bpmpaas.png?raw=true)](http://vimeo.com/ericschabell/bpmpaas-brms-coolstore-demo)
 
 ![Digital Sign Annoucement](https://github.com/eschabell/brms-coolstore-demo/blob/master/docs/demo-images/announce-sign.jpg?raw=true)
 
