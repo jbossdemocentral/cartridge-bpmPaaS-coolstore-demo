@@ -15,7 +15,7 @@ JBoss BRMS logins:
 
 Important Note
 --------------
-You need the ability to setup MEDIUM gears, which is freely available if you [upgrade your account to Bronze here] (https://www.openshift.com/products/pricing). 
+You need the ability to setup LARGE gears, which is freely available if you [upgrade your account to Bronze here] (https://www.openshift.com/products/pricing). 
 
 
 Deployment
@@ -29,7 +29,7 @@ If you want to use the [OpenShift create application page](https://openshift.red
 
 Or if you want to use the [rhc command line](https://www.openshift.com/developers/rhc-client-tools-install) type:
 
-    rhc app create -g medium <APP NAME> https://raw.githubusercontent.com/eschabell/cartridge-bpmPaaS-coolstore-demo/master/metadata/manifest.yml
+    rhc app create -g large <APP NAME> https://raw.githubusercontent.com/eschabell/cartridge-bpmPaaS-coolstore-demo/master/metadata/manifest.yml
 
 This will output the generated users and passwords for Business Central.
 
