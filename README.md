@@ -63,8 +63,6 @@ Released versions
 
 [![Video Demo bpmPaaS](https://github.com/eschabell/erics-images/blob/master/video-images/video-brms-coolstore-bpmpaas.png?raw=true)](http://vimeo.com/ericschabell/bpmpaas-brms-coolstore-demo)
 
-![Digital Sign Annoucement](https://github.com/eschabell/brms-coolstore-demo/blob/master/docs/demo-images/announce-sign.jpg?raw=true)
-
 ![Decision Table](https://github.com/eschabell/brms-coolstore-demo/blob/master/docs/demo-images/coolstore-decision-table.png?raw=true)
 
 ![Domain Model](https://github.com/eschabell/brms-coolstore-demo/blob/master/docs/demo-images/coolstore-model.png?raw=true)
