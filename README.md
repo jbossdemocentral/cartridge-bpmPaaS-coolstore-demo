@@ -61,6 +61,8 @@ Supporting Articles
 Released versions
 -----------------
 
+- v1.0 - moved to JBoss Demo Central.
+
 - v1.0 - based on bpmPaaS from JBoss BRMS 6.0.2 with Cool Store installed.
 
 [![Video Demo bpmPaaS](https://github.com/jbossdemocentral/erics-images/blob/master/video-images/video-brms-coolstore-bpmpaas.png?raw=true)](http://vimeo.com/ericschabell/bpmpaas-brms-coolstore-demo)
