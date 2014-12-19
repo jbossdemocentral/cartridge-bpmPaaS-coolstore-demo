@@ -1,16 +1,20 @@
 ## Cartridge for bpmPaaS with CoolStore Demo
 
-Summary
--------
 This cartridge provides the **_Red Hat JBoss BRMS_** for easy deployment to OpenShift based bpmPaaS with pre-loaded Cool Store Demo.
 
-For more information on the [Cool Store Demo see here] (https://github.com/jbossdemocentral/brms-coolstore-demo).
+Install with one click in xPaaS (brmsPaaS)
+-----------------------------------------
+After clicking button, ensure `Gear` size is set to `large`:
 
-JBoss BRMS logins: 
+[![Click to install OpenShift](http://launch-shifter.rhcloud.com/launch/light/Click to  install.svg)](https://openshift.redhat.com/app/console/application_type/custom?&cartridges[]=https://raw.githubusercontent.com/jbossdemocentral/cartridge-bpmPaaS-coolstore-demo/master/metadata/manifest.yml&name=coolstore&gear_profile=large&initial_git_url=)
+
+Once installed you can use the JBoss BRMSlogins: 
 
    * u:erics  p: jbossbrms1!  (admin)
 
    * u: alan  p: jbossbrms1!  (analyst)
+
+For more information on the [Cool Store Demo see here] (https://github.com/jbossdemocentral/brms-coolstore-demo).
 
 
 Important Note
@@ -18,15 +22,8 @@ Important Note
 You need the ability to setup LARGE gears, which is freely available if you [upgrade your account to Bronze here] (https://www.openshift.com/products/pricing). 
 
 
-Deployment
-----------
-
-To try out JBoss BRMS on OpenShift please follow the instructions:
-
-If you want to use the [OpenShift create application page](https://openshift.redhat.com/app/console/application_types), enter this cartridge URI in the entry field (at the bottom left of the form):
-
-  **https://raw.githubusercontent.com/jbossdemocentral/cartridge-bpmPaaS-coolstore-demo/master/metadata/manifest.yml**
-
+Manual setup on OpenShift
+-------------------------
 Or if you want to use the [rhc command line](https://www.openshift.com/developers/rhc-client-tools-install) type:
 
     rhc app create -g large <APP NAME> https://raw.githubusercontent.com/jbossdemocentral/cartridge-bpmPaaS-coolstore-demo/master/metadata/manifest.yml
@@ -61,7 +58,7 @@ Supporting Articles
 Released versions
 -----------------
 
-- v1.0 - moved to JBoss Demo Central.
+- v1.1 - moved to JBoss Demo Central, added one click install button.
 
 - v1.0 - based on bpmPaaS from JBoss BRMS 6.0.2 with Cool Store installed.
 
