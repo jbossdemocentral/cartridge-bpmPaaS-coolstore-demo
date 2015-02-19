@@ -58,6 +58,8 @@ Supporting Articles
 Released versions
 -----------------
 
+- v1.2 - based on brmsPaas from JBoss BRMS 6.0.2 with updated web app with dep fixes.
+
 - v1.1 - moved to JBoss Demo Central, added one click install button.
 
 - v1.0 - based on bpmPaaS from JBoss BRMS 6.0.2 with Cool Store installed.
