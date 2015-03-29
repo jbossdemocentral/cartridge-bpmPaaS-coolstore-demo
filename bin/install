@@ -52,7 +52,7 @@ set_env_var DISABLE_OPENSHIFT_MANAGED_SERVER_CONFIG true ~/.env/user_vars
 mv ${OPENSHIFT_BRMS_DIR}/versions/${version}/standalone/data/brms-demo-niogit ${OPENSHIFT_BRMS_DIR}/standalone/data/.niogit
 
 # link in custom maven setting for scanning dynamice rule updates.
-ln -s${OPENSHIFT_BRMS_DIR}/template/${OPENSHIFT_BRMS_CONFIG_PATH}/custom-settings.xml ${OPENSHIFT_BRMS_DIR}/standalone/data/.settings.xml
+ln -s ${OPENSHIFT_BRMS_DIR}/template/${OPENSHIFT_BRMS_CONFIG_PATH}/custom-settings.xml ${OPENSHIFT_BRMS_DIR}/standalone/data/.settings.xml
 
 
 brms_admin_username=erics
