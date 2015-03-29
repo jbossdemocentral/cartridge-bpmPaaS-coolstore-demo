@@ -79,7 +79,7 @@
         <property name="user.home" value="${env.OPENSHIFT_HOMEDIR}"/>
 
 				<!-- Set up custom maven configuration for KieScanner to monitor for rule changes. -->
-				<property name="kie.maven.settings.custom" value="${jboss.home.dir}/bin/.settings.xml"/>
+				<property name="kie.maven.settings.custom" value="${env.OPENSHIFT_BRMS_DIR}/standalone/data/.settings.xml"/>
     </system-properties>
 
     <management>
