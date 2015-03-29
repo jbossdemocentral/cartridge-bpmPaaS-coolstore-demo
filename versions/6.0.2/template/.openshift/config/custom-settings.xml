@@ -5,13 +5,11 @@
    |
    | Default: ~/.m2/repository
   -->
-  <localRepository>/tmp/maven-repo</localRepository>
-
 	<repositories>
 		<repository>
 			<id>jboss-bpm-suite-repo</id>
 			<name>JBoss BPM Suite Maven Repository</name>
-			<url>file:///tmp/maven-repo</url>
+			<url>file://${env.OPENSHIFT_HOMEDIR}/.m2/repository</url>
 			<layout>default</layout>
 			<releases>
 				<enabled>true</enabled>
@@ -28,7 +26,7 @@
 		<pluginRepository>
 			<id>jboss-bpm-suite-repo</id>
 			<name>JBoss BPM Suite Maven Repository</name>
-			<url>file:///tmp/maven-repo</url>
+			<url>file://${env.OPENSHIFT_HOMEDIR}/.m2/repository</url>
 			<layout>default</layout>
 			<releases>
 				<enabled>true</enabled>
