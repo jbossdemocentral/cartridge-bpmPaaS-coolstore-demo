@@ -1,3 +1,14 @@
+# Depricated: 
+
+-----
+
+This project was based on OpenShift v2, a new version is available 
+for [OpenShift Container Platform](https://github.com/redhatdemocentral/rhcs-coolstore-demo).
+
+-----
+
+
+
 ## Cartridge for bpmPaaS with CoolStore Demo
 
 This cartridge provides the **_Red Hat JBoss BRMS_** for easy deployment to OpenShift based bpmPaaS with pre-loaded Cool Store Demo.
